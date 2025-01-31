@@ -27,30 +27,26 @@ describe('Test', () => {
 
   it('Should Print out the value of the Icon URL if its not null.', () => {
 
-        cy.getJSON('getSimpsons');
+        cy.getJSON('https://api.duckduckgo.com/?q=android&format=json');
 
-        cy.fixture('simpsons').then((simpsons) => {
+        cy.fixture('android').then((android) => {
             const logIcons = (obj) => {
                 if (obj.Icon?.URL) {
-                    cy.log(`"Icon": {
-                        "Height": ${obj.Icon.Height},
-                        "URL": ${obj.Icon.URL},
-                        "Width": ${obj.Icon.Width}
-                    }`);
+                    cy.log(`"URL": ${obj.Icon.URL}`);
                 }
             };
 
-            const traverse = (obj) => {
-                if (Array.isArray(obj)) {
-                    obj.forEach(traverse);
-                } else if (typeof obj === 'object' && obj !== null) {
-                    logIcons(obj);
-                    Object.values(obj).forEach(traverse);
-                }
-            };
+        const traverse = (obj) => {
+            if (Array.isArray(obj)) {
+                obj.forEach(traverse);
+            } else if (typeof obj === 'object' && obj !== null) {
+                logIcons(obj);
+                Object.values(obj).forEach(traverse);
+            }
+        };
 
-            traverse(simpsons);
-        });
+        traverse(android);
+    });
 
   });
 

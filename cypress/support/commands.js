@@ -25,9 +25,9 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 
-Cypress.Commands.add('getJSON', () => {
-    cy.request('GET', 'https://api.duckduckgo.com/?q=the+simpsons&format=json').then((response) => {
+Cypress.Commands.add('getJSON', (url) => {
+    cy.request('GET', url).then((response) => {
         expect(response.status).to.eq(200);
-        cy.writeFile('cypress/fixtures/simpsons.json', response.body)
+        cy.writeFile('cypress/fixtures/android.json', response.body)
     });
 });
